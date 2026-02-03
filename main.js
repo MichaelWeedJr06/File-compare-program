@@ -14,9 +14,9 @@ const readFiles = async (filename) => {
       let temp = [];
       let site_links = await scrapeLinks(githubLinks[i]);
       //console.log(githubLinks);
-      //console.log(site_links);
+      console.log(site_links);
       for (const link of site_links) {
-       let rightLink = link.replace("/blob", "/refs/heads")
+        let rightLink = link.replace("/blob", "/refs/heads");
         const subHash = await getHash(`${hostURL}${rightLink}`);
         temp.push(subHash);
         console.log(temp);
@@ -24,11 +24,8 @@ const readFiles = async (filename) => {
       //console.log(temp);
       hashes.push(temp);
     }
-  for(let k = 0; k<hashes.length;k++){
-    
-  }
-    }
-   catch (err) {
+    for (let k = 0; k < hashes.length; k++) {}
+  } catch (err) {
     console.error(`Error reading in file: ${err}`);
   }
 };
