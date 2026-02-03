@@ -1,1 +1,1 @@
-get https://github.com/Thomasafk145/Node-assignment-ceaser-sypher/
+get https://raw.githubusercontent.com/Thomasafk145/Node-assignment-ceaser-sypher/refs/heads/main/package.json
