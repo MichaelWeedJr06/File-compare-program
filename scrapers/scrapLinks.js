@@ -1,7 +1,7 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
-
-async function scrapeLinks(url, search = "blob") {
+async function scrapeLinks(url) {
+  const search = "blob";
   try {
     const { data } = await axios.get(url);
     const $ = cheerio.load(data);
