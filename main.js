@@ -1,12 +1,12 @@
-const { readFile, writeFile } = require("fs").promises;
 const { scrapeLinks } = require("./scrapers/scrapLinks.js");
 const { getHash } = require("./scrapers/ScrapAndHashPage.js");
+const { QLineEdit, QWidget, QPushButton , QMainWindow, FlexLayout} = require("@nodegui/nodegui");
 const readFiles = async (filename) => {
 const hostURL = "https://raw.githubusercontent.com";
 
   try {
-    const data = await readFile(filename, "utf8");
-    const githubLinks = data.split(",");
+    const data = filename;
+    const githubLinks = data;
     let hashes = [];
 
     for (let i = 0; i < githubLinks.length; i++) {
@@ -37,4 +37,38 @@ const hostURL = "https://raw.githubusercontent.com";
     console.error(`Error reading in file: ${err}`);
   }
 };
-readFiles("sampleLinks.csv");
+function loadUI(){
+  const win = new QMainWindow();
+  win.setWindowTitle("File Compare Program")
+
+  const centralWidget = new QWidget();
+  const layout = new FlexLayout();
+
+  centralWidget.setLayout(layout)
+  win.setCentralWidget(centralWidget);
+
+  const input1 = new QLineEdit();
+  input1.setPlaceholderText("Enter Link to Repo 1");
+
+  const input2 = new QLineEdit();
+  input2.setPlaceholderText("Enter Link to Repo 2");
+
+  const compareButton = new QPushButton();
+  compareButton.setText("Submit");
+
+  compareButton.addEventListener("clicked", () => {
+    let repos = [];
+     repos[0] = input1.text();
+     repos[1] = input2.text();
+    console.log(`User inputs: ${repos[0]}, ${repos[1]}`);
+    readFiles(repos);
+  })
+
+  layout.addWidget(input1);
+  layout.addWidget(input2);
+  layout.addWidget(compareButton);
+
+  win.show();
+  global.win = win;
+}
+loadUI();
