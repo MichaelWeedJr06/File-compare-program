@@ -5,10 +5,10 @@ const PORT = 3000;
 const path = require("path");
 
 app.get("/", (req, res) => {
+  let p = path.join(__dirname);
+  p = p.replace("\\server", "\\html");
   const options = {
-    root: path.join(
-      "C:\\Users\\CMP_MiWeed\\Documents\\File compare program\\html"
-    ),
+    root: p,
   };
   const fileName = "index.html";
   res.sendFile(fileName, options, function (err) {

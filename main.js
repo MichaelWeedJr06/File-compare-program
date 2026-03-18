@@ -71,4 +71,3 @@ function loadUI(){
   win.show();
   global.win = win;
 }
-loadUI();
