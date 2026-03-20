@@ -1,12 +1,17 @@
 const { scrapeLinks } = require("./scrapers/scrapLinks.js");
 const { getHash } = require("./scrapers/ScrapAndHashPage.js");
-const { QLineEdit, QWidget, QPushButton , QMainWindow, FlexLayout} = require("@nodegui/nodegui");
-const readFiles = async (filename) => {
-const hostURL = "https://raw.githubusercontent.com";
+const {
+  QLineEdit,
+  QWidget,
+  QPushButton,
+  QMainWindow,
+  FlexLayout,
+} = require("@nodegui/nodegui");
+const Main = async (links) => {
+  const hostURL = "https://raw.githubusercontent.com";
 
   try {
-    const data = filename;
-    const githubLinks = data;
+    const githubLinks = links;
     let hashes = [];
 
     for (let i = 0; i < githubLinks.length; i++) {
@@ -20,31 +25,31 @@ const hostURL = "https://raw.githubusercontent.com";
       }
       hashes.push(temp);
     }
-    same_count = [];
-    for (let i = 0; i < hashes.length; i++) {
-  for (let j = i + 1; j < hashes.length; j++) {
-    let same = 0;
-    const set = new Set(hashes[i]);
 
-    for (const hash of hashes[j]) {
-      if (set.has(hash)) same++;
+    for (let i = 0; i < hashes.length; i++) {
+      for (let j = i + 1; j < hashes.length; j++) {
+        let same = 0;
+        const set = new Set(hashes[i]);
+
+        for (const hash of hashes[j]) {
+          if (set.has(hash)) same++;
+        }
+        console.log(`Repo ${i} vs Repo ${j}: ${same} matches`);
+        return same, hashes.length;
+      }
     }
-    same_count.push(same);
-    console.log(`Repo ${i} vs Repo ${j}: ${same} matches`);
-  }
-}
   } catch (err) {
     console.error(`Error reading in file: ${err}`);
   }
 };
-function loadUI(){
+function loadUI() {
   const win = new QMainWindow();
-  win.setWindowTitle("File Compare Program")
+  win.setWindowTitle("File Compare Program");
 
   const centralWidget = new QWidget();
   const layout = new FlexLayout();
 
-  centralWidget.setLayout(layout)
+  centralWidget.setLayout(layout);
   win.setCentralWidget(centralWidget);
 
   const input1 = new QLineEdit();
@@ -58,11 +63,11 @@ function loadUI(){
 
   compareButton.addEventListener("clicked", () => {
     let repos = [];
-     repos[0] = input1.text();
-     repos[1] = input2.text();
+    repos[0] = input1.text();
+    repos[1] = input2.text();
     console.log(`User inputs: ${repos[0]}, ${repos[1]}`);
     readFiles(repos);
-  })
+  });
 
   layout.addWidget(input1);
   layout.addWidget(input2);
@@ -71,3 +76,4 @@ function loadUI(){
   win.show();
   global.win = win;
 }
+module.exports = { Main };
