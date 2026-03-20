@@ -3,10 +3,10 @@ const express = require("express");
 const app = express();
 const PORT = 3000;
 const path = require("path");
-
+app.use(express.json());
 app.get("/", (req, res) => {
   let p = path.join(__dirname);
-  p = p.replace("\\server", "\\html");
+  p = p.replace("server", "html");
   const options = {
     root: p,
   };
@@ -21,7 +21,7 @@ app.get("/", (req, res) => {
 });
 
 app.post("/submit", (req, res) => {
-  res.send("Submitted");
+  console.log(req.body);
 });
 
 app.listen(PORT, () => {
