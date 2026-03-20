@@ -4,24 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>File Compare Program</title>
-    <style>
-      #output {
-        display: flex;
-      }
-    </style>
+    <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
     <div class="main">
+      <h1>Github Repo Comparer</h1>
       <form id="linkForm">
-        <label for="Link-1">Link 1:</label>
-        <input name="link1" type="text" id="Link-1" />
-        <label for="Link-2">Link 2:</label>
-        <input name="link2" type="text" id="Link-2" />
-        <button type="submit">Submit</button>
+        <label for="Link-1" id="Link-1">Link 1:</label>
+        <input name="link1" type="text" id="Link-1" class="input-1"/>
+        <label for="Link-2" id="Link-2">Link 2:</label>
+        <input name="link2" type="text" id="Link-2" class="input-2" />
+        <button type="submit" id="btn-submit">Submit</button>
       </form>
       <div id="output">
-        <div id="leftdata">1</div>
-        <div id="rightdata">2</div>
+        <div id="leftdata">0</div>
+        <div id="rightdata">/ 0</div>
       </div>
     </div>
     <script>
@@ -36,16 +33,16 @@
           console.log(`${key}: ${value}`);
         }
         try {
-          const response = await fetch("/submit", {
+          
+          const resData = await fetch("/submit", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
             body: JSON.stringify(data),
-          });
-          const resData = await response.json();
+          }).then((res) => res.json());
           document.getElementById("leftdata").innerHTML = resData[0];
-          document.getElementById("rightdata").innerHTML = resData[1];
+          document.getElementById("rightdata").innerHTML = ` / ${resData[1]}`;
         } catch (err) {
           console.error(err);
         }

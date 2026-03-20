@@ -1,0 +1,48 @@
+#leftdata{
+    display: inline;
+    width: 5px;
+    font-size: 25px;
+    align-self: center;
+    color:red;
+}
+#rightdata{
+    display: inline;
+    width: 5px;
+    font-size: 25px;
+    align-self: center;
+    color:red
+}
+.main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    background-color: blue;
+}
+#linkForm{
+    color:aliceblue;
+}
+h1{
+    color:aliceblue;
+}
+#Link-1, #Link-2{
+    margin-right: 5px;
+    height: 25px;
+}
+.input-1, .input-2 {
+    font-size: 20px;
+    border-radius: 8px;
+}
+#btn-submit{
+    height: 40px;
+    width: 140px;
+    background-color: red;
+    border-radius: 12px;
+    justify-self: center;
+    color: aliceblue;
+    font-size: 20px;
+}
+
+body{
+    background-color: blue;
+}

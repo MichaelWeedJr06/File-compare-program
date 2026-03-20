@@ -25,9 +25,8 @@ app.get("/", (req, res) => {
     }
   });
 });
-const Main = require("../main");
+const {Main} = require("../main");
 app.post("/submit", async (req, res) => {
-  console.log(req.body);
   const { link1, link2 } = req.body;
   const links = [link1, link2];
   const result = await Main(links);
