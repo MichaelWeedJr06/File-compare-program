@@ -1,18 +1,17 @@
 const express = require("express");
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const path = require("path");
 //const bodyParser = require("body-parser");
 // // using body-parser middleware
 //app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "../html")));
-app.use(express.static(path.join(__dirname, "..")));
+app.use(express.static(path.join(__dirname, "../public")));
+app.use(express.static(path.join("*")))
 // app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
-  let p = path.join(__dirname);
-  p = p.replace("server", "html");
+  let p = path.join(__dirname, "../public/html");
   const options = {
     root: p,
   };
