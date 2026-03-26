@@ -1,6 +1,6 @@
 const axios = require("axios");
 const crypto = require("crypto");
-  
+
 async function getHash(pageUrl) {
   let { data } = await axios.get(pageUrl);
   let normalizedData = normalizeAndCleanString(data.toString());
